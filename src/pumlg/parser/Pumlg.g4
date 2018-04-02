@@ -1,4 +1,4 @@
-grammar Plantuml;
+grammar Pumlg;
 
 uml:
     '@startuml'

@@ -1,5 +1,5 @@
 //the path to the version.h file is relative to your build directory.
-#include <plantuml_gen/version.h>
+#include <pumlg/compiler/version.h>
 
 const std::string VERSION = "@VERSION@";
 const std::string VERSION_SHORT = "@VERSION_SHORT@";

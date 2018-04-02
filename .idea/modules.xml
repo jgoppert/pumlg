@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/plantuml_gen.iml" filepath="$PROJECT_DIR$/.idea/plantuml_gen.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/pumlg.iml" filepath="$PROJECT_DIR$/.idea/pumlg.iml" />
     </modules>
   </component>
 </project>

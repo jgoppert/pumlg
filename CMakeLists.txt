@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.5)
 
-project(plantuml_gen C CXX)
+project(pumlg CXX)
 
 #-----------------------------------------------------------------------------
 # Setup
@@ -34,7 +34,7 @@ find_package(Threads REQUIRED)
 
 include_directories(
         ${PROJECT_SOURCE_DIR}/src
-        ${PROJECT_BINARY_DIR}
+        ${PROJECT_BINARY_DIR}/src
         ${EP_PREFIX}/include/antlr4-runtime
         ${EP_PREFIX}/include)
 link_directories(${EP_PREFIX}/lib)
@@ -111,16 +111,37 @@ set_property(TARGET antlr4-runtime PROPERTY IMPORTED_LOCATION
         ${EP_PREFIX}/lib/libantlr4-runtime${CMAKE_STATIC_LIBRARY_SUFFIX})
 add_dependencies(antlr4-runtime antlr4cpp)
 
+
+#-----------------------------------------------------------------------------
+# JSON
+#-----------------------------------------------------------------------------
+ExternalProject_Add(json
+        URL https://github.com/nlohmann/json/releases/download/v3.1.2/include.zip
+        URL_MD5 0044fbef3d6b7087bb6c0498ac62acf8
+        TIMEOUT 10
+        PREFIX ${EP_PREFIX}
+        LOG_CONFIGURE ON
+        LOG_BUILD ON
+        LOG_INSTALL ON
+        LOG_DOWNLOAD ON
+        LOG_UPDATE ON
+        BUILD_COMMAND ""
+        CONFIGURE_COMMAND ""
+        INSTALL_COMMAND cp -r ${EP_PREFIX}/src/json/nlohmann ${EP_PREFIX}/include
+        )
+
+
 #-----------------------------------------------------------------------------
 # Libraries
 #-----------------------------------------------------------------------------
-add_subdirectory(src/plantuml_antlr)
-add_subdirectory(src/plantuml_gen)
+add_subdirectory(src/pumlg/parser)
+add_subdirectory(src/pumlg/compiler)
+add_subdirectory(src/pumlg/generators/json)
 
 #-----------------------------------------------------------------------------
 # Applications
 #-----------------------------------------------------------------------------
-add_subdirectory(apps/plantuml_gen)
+add_subdirectory(apps/pumlg_cli)
 
 #-----------------------------------------------------------------------------
 # Tests

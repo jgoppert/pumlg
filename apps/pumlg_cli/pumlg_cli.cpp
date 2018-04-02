@@ -2,8 +2,10 @@
 #include <fstream>
 #include <boost/filesystem.hpp>
 #include <boost/program_options.hpp>
-//#include <plantuml_gen/Compiler.h>
-#include <plantuml_gen/version.h>
+#include <pumlg/compiler/Compiler.h>
+#include <pumlg/compiler/version.h>
+#include <pumlg/generators/json/Generator.h>
+
 
 using namespace boost::filesystem;
 namespace po = boost::program_options;
@@ -21,7 +23,7 @@ void usage(
     const string &appName,
     const po::options_description &desc,
     const po::positional_options_description &pos_desc) {
-  std::cout << "plantuml_gen " << VERSION << std::endl;
+  std::cout << "pumlg_cli " << VERSION << std::endl;
   std::cout << "usage: " << appName << " [options] model.puml" << std::endl;
   std::cout << desc << std::endl;
   //std::cout << pos_desc << std::endl;
@@ -93,9 +95,9 @@ int main(int argc, const char *argv[]) {
     path model_path(vm["model"].as<string>());
     assert(exists(model_path));
     std::ifstream fileStream(model_path.string());
-    //plantuml_gen::Compiler c(fileStream);
+    pumlg::Compiler c(fileStream);
 
-    std::cout << bar << "\nLexer\n" << bar << std::endl;
+    //std::cout << bar << "\nLexer\n" << bar << std::endl;
     //for (auto token : c.getTokenStream().getTokens()) {
     //  std::cout << token->toString() << std::endl;
     //}
@@ -105,6 +107,13 @@ int main(int argc, const char *argv[]) {
 
     std::cout << bar << "\nCompile output\n" << bar<< std::endl;
     //c.printXML(std::cout);
+
+    // generate json
+    auto root = c.getAst();
+    auto gen = pumlg::generators::json::Generator();
+    root.walk(gen);
+
+    std::cout << "json:" << std::setw(4) << gen.getJson() << std::endl;
   }
   catch (std::exception &e) {
     std::cerr << "Unhandled Exception reached the top of main: "

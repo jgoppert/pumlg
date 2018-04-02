@@ -1,15 +1,17 @@
 #-----------------------------------------------------------------------------
 # Command Line Interface
 #-----------------------------------------------------------------------------
-add_executable(plantuml_gen
-        plantuml_gen.cpp)
-target_link_libraries(plantuml_gen
-        plantuml_gen_compiler
-        plantuml_antlr
+add_executable(pumlg_cli
+        pumlg_cli.cpp)
+
+target_link_libraries(pumlg_cli
+        pumlg_compiler
+        pumlg_parser
+        pumlg_generator_json
         antlr4-runtime
         )
 
-install(TARGETS plantuml_gen
+install(TARGETS pumlg_cli
         RUNTIME DESTINATION bin
         LIBRARY DESTINATION lib
         ARCHIVE DESTINATION lib/static)

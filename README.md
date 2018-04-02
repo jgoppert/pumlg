@@ -1,5 +1,5 @@
-# plantuml_gen
+# pumlg
 
-[![Build Status](https://travis-ci.org/jgoppert/plantuml_gen.svg?branch=master)](https://travis-ci.org/jgoppert/plantuml_gen)
+[![Build Status](https://travis-ci.org/jgoppert/pumlg.svg?branch=master)](https://travis-ci.org/jgoppert/pumlg)
 
 A code generator for plantuml diagrams.
