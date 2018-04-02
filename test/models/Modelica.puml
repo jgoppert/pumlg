@@ -1,0 +1,103 @@
+@startuml
+
+class Node
+
+class Root {
++string within
+}
+class Class {
++string name
++bool encapsulated
++bool final
+}
+
+Node <|- Root
+Node <|-- Class
+Root *--> "classes *" Class: <<map(str)>>
+
+hide Node
+
+newpage
+
+enum Visibility {
+PUBLIC
+PRIVATE
+PROTECTED
+}
+
+class EquationSection {
++bool initial
+}
+
+class AlgorithmSection {
++bool initial
+}
+
+class ElementSection {
++Visibility visibility
+}
+
+Node <|-- EquationSection
+Node <|-- AlgorithmSection
+Node <|-- ElementSection
+
+Class *-- "elem_sect *" ElementSection : <<list>>
+Class *--> "eq_sect *" EquationSection : <<list>>
+Class *--> "alg_sect *" AlgorithmSection : <<list>>
+
+abstract class Element
+abstract class Equation
+abstract class Statement
+
+Node <|--Element
+Node <|--Equation
+Node <|--Statement
+
+ElementSection *--> "elems *" Element : <<list>>
+EquationSection *--> "eqs *" Equation : <<list>>
+AlgorithmSection *--> "stmts *" Statement : <<list>>
+
+hide Node
+
+newpage
+
+class Function {
++bool purity
+}
+class Connector {
++bool expandable
+}
+
+Class <|-- Function
+Class <|-- Connector
+
+newpage
+
+class Expression
+class EquationFor
+class EquationIf
+class EquationWhen
+
+Node <|-- Expression
+Equation <|-- EquationFor
+Equation <|-- EquationIf
+Equation <|-- EquationWhen
+
+hide Expression
+hide Node
+
+newpage
+
+class StatementFor {
+}
+class StatementIf {
++Expression condition
+}
+class StatementWhen {
++Expression condition
+}
+Statement <|-- StatementFor
+Statement <|-- StatementIf
+Statement <|-- StatementWhen
+
+@enduml

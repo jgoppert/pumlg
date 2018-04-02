@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.5)
 
-project(plantuml_gen CXX)
+project(plantuml_gen C CXX)
 
 #-----------------------------------------------------------------------------
 # Setup
@@ -114,17 +114,19 @@ add_dependencies(antlr4-runtime antlr4cpp)
 #-----------------------------------------------------------------------------
 # Libraries
 #-----------------------------------------------------------------------------
-#add_subdirectory(src/plantuml_gen)
+add_subdirectory(src/plantuml_antlr)
+add_subdirectory(src/plantuml_gen)
 
 #-----------------------------------------------------------------------------
 # Applications
 #-----------------------------------------------------------------------------
+add_subdirectory(apps/plantuml_gen)
 
 #-----------------------------------------------------------------------------
 # Tests
 #-----------------------------------------------------------------------------
 enable_testing()
-#add_subdirectory(test)
+add_subdirectory(test)
 
 #-----------------------------------------------------------------------------
 # CPack

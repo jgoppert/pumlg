@@ -1,0 +1,26 @@
+@startuml
+
+abstract class AbstractList
+abstract AbstractCollection
+interface List
+interface Collection
+
+List <|-- AbstractList : map<str, Class>
+Collection <|-- AbstractCollection
+
+Collection <|-- List
+AbstractCollection <|-- AbstractList
+AbstractList <|-- ArrayList
+
+class ArrayList {
+map<str, Object> elementData
+size()
+}
+
+enum TimeUnit {
+DAYS
+HOURS
+MINUTES
+}
+
+@enduml
